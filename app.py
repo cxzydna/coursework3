@@ -1,7 +1,6 @@
 import utils
 
 from flask import Flask, render_template, request
-from post_blueprint.post_bp import post_bp
 
 app = Flask(__name__)
 
