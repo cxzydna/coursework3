@@ -44,7 +44,7 @@ def search_for_posts(query):
     for post in all_posts:
         if query.lower() in post["content"].lower():
             result.append(post)
-    return result if len(result) <= 10 else []
+    return result if len(result) <= 10 else 'Слишком много постов'
 
 
 def get_post_by_pk(pk):
