@@ -42,7 +42,7 @@ def search_for_posts(query):
     result = []
 
     for post in all_posts:
-        if query in post["content"]:
+        if query.lower() in post["content"].lower():
             result.append(post)
     return result if len(result) <= 10 else []
 
