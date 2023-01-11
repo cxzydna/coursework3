@@ -4,7 +4,6 @@ from flask import Flask, render_template, request
 from post_blueprint.post_bp import post_bp
 
 app = Flask(__name__)
-#app.register_blueprint(post_bp, url_prefix='/post')
 
 
 @app.route('/', methods=['GET'])
