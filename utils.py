@@ -1,19 +1,33 @@
+# Importing a library to work with JSON
 import json
 
 
 def get_posts_all():
+    """
+    The function gets a list with all posts
+    :return:   - list of posts
+    """
     with open("data/posts.json", "r", encoding="utf-8") as f:
         posts = json.load(f)
     return posts
 
 
 def get_all_comments():
+    """
+    The function gets a list with all the comments
+    :return:   - list of comments
+    """
     with open("data/comments.json", "r", encoding="utf-8") as f:
         comments = json.load(f)
     return comments
 
 
 def get_posts_by_user(user_name):
+    """
+    The function returns a post by username
+    :param user_name:  - name of the user
+    :return:           - post
+    """
     all_posts = get_posts_all()
     result = []
     try:
@@ -26,6 +40,11 @@ def get_posts_by_user(user_name):
 
 
 def get_comments_by_post_id(post_id):
+    """
+    The function returns comments by post id
+    :param post_id:  - post id
+    :return:         - list of comments
+    """
     all_comments = get_all_comments()
     result = []
     try:
@@ -38,6 +57,11 @@ def get_comments_by_post_id(post_id):
 
 
 def search_for_posts(query):
+    """
+    The function returns posts by keyword
+    :param query:  - keyword
+    :return:       - list of posts
+    """
     all_posts = get_posts_all()
     result = []
 
@@ -48,6 +72,11 @@ def search_for_posts(query):
 
 
 def get_post_by_pk(pk):
+    """
+    The function returns a post by pk
+    :param pk:  - pk
+    :return:    - post
+    """
     all_posts = get_posts_all()
     for post in all_posts:
         if post["pk"] == pk:
@@ -55,6 +84,11 @@ def get_post_by_pk(pk):
 
 
 def get_post_by_comment(post_id):
+    """
+    The function returns a post by comment
+    :param post_id:  - post id
+    :return:         - post
+    """
     all_posts = get_posts_all()
     for post in all_posts:
         if post_id == post["pk"]:
