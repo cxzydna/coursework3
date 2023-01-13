@@ -1,8 +1,10 @@
 import utils
 
 from flask import Flask, render_template, request
+from api_bp.api_bp import api_bp
 
 app = Flask(__name__, static_folder='./static')
+app.register_blueprint(api_bp, url_prefix='/api')
 
 
 @app.route('/', methods=['GET'])
