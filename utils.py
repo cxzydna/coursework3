@@ -129,12 +129,6 @@ def search_for_tags(tag_name):
 
 
 def get_posts_with_tags(post):
-    # for word in post["content"].split(" "):
-    #     if word.startswith('#'):
-    #         post["content"] = post["content"].replace(
-    #             word, f'<a href="/tag/{word[1:]}">{word}</a>'
-    #         )
-    #
     result = []
     for word in post["content"].split(" "):
         if word.startswith('#'):
@@ -143,26 +137,3 @@ def get_posts_with_tags(post):
             result.append(word)
     post["content"] = " ".join(result)
     return post
-
-# def replace_tag_by_links(posts):
-#     final_result = []
-#     result = []
-#     for post in posts:
-#
-#         for word in post["content"].split(" "):
-#             if word.startswith('#'):
-#                 result.append(f'<a href="/tag/{word}">#{word}</a>')
-#             else:
-#                 result.append(word)
-#             post["content"] = " ".join(result)
-#         final_result.append(post)
-#
-#     return final_result
-#
-#
-# def update_json_content_tags():
-#     with open("data/posts.json", "r", encoding="utf-8") as file:
-#         data = json.load(file)
-#     data = replace_tag_by_links(data)
-#     with open("data/posts.json", "w", encoding="utf-8") as file:
-#         json.dump(data, file, indent=2, ensure_ascii=False)
