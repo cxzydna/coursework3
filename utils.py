@@ -93,3 +93,27 @@ def get_post_by_comment(post_id):
     for post in all_posts:
         if post_id == post["pk"]:
             return post
+
+
+def add_post_to_bookmarks(post):
+    with open("data/bookmarks.json", "r", encoding="utf-8") as file:
+        data = json.load(file)
+    print(data)
+    data.append(post)
+    print(data)
+    with open("data/bookmarks.json", "w", encoding="utf-8") as file:
+        json.dump(data, file, indent=2, ensure_ascii=False)
+
+
+def remove_post_from_bookmarks(post):
+    with open("data/bookmarks.json", "r", encoding="utf-8") as file:
+        data = json.load(file)
+    data.remove(post)
+    with open("data/bookmarks.json", "w", encoding="utf-8") as file:
+        json.dump(data, file, indent=2, ensure_ascii=False)
+
+
+def get_all_bookmarks():
+    with open("data/bookmarks.json", "r", encoding="utf-8") as file:
+        data = json.load(file)
+    return data

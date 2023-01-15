@@ -1,6 +1,6 @@
 import utils
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 from api_bp.api_bp import api_bp
 
 app = Flask(__name__, static_folder='./static')
@@ -10,7 +10,11 @@ app.register_blueprint(api_bp, url_prefix='/api')
 @app.route('/', methods=['GET'])
 def main_page():
     posts = utils.get_posts_all()
-    return render_template('index.html', posts=posts)
+    bookmarks_count = utils.get_all_bookmarks()
+    count = len(list({post['pk']: post for post in bookmarks_count}.values()))
+    return render_template(
+        'index.html', posts=posts, bookmarks_count=count
+    )
 
 
 @app.route('/post/<int:post_id>/', methods=['GET'])
@@ -37,6 +41,26 @@ def search_post():
 def user_page(username):
     posts = utils.get_posts_by_user(username)
     return render_template('user-feed.html', posts=posts, username=username)
+
+
+@app.route('/bookmarks/add/<int:post_id>/', methods=['GET'])
+def add_bookmarks(post_id):
+    post = utils.get_post_by_pk(post_id)
+    utils.add_post_to_bookmarks(post)
+    return redirect('/', code=302)
+
+
+@app.route('/bookmarks/remove/<int:post_id>/', methods=['GET'])
+def remove_bookmarks(post_id):
+    post = utils.get_post_by_pk(post_id)
+    utils.remove_post_from_bookmarks(post)
+    return redirect('/', code=302)
+
+
+@app.route('/bookmarks/', methods=['GET'])
+def bookmarks_page():
+    bookmarks = utils.get_all_bookmarks()
+    return render_template('bookmarks.html', bookmarks=bookmarks)
 
 
 @app.errorhandler(404)
