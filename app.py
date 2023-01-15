@@ -21,9 +21,10 @@ def main_page():
 def post_page(post_id):
     comments = utils.get_comments_by_post_id(post_id)
     post = utils.get_post_by_comment(post_id)
+    new_post = utils.get_posts_with_tags(post)
     counter = len(comments)
     return render_template(
-        'post.html', comments=comments, post=post, comments_count=counter
+        'post.html', comments=comments, post=new_post, comments_count=counter
     )
 
 
@@ -61,6 +62,12 @@ def remove_bookmarks(post_id):
 def bookmarks_page():
     bookmarks = utils.get_all_bookmarks()
     return render_template('bookmarks.html', bookmarks=bookmarks)
+
+
+@app.route('/tag/<tag_name>/')
+def tag_page(tag_name):
+    posts = utils.search_for_tags('#' + tag_name)
+    return render_template('tag.html', posts=posts, tag_name=tag_name)
 
 
 @app.errorhandler(404)
